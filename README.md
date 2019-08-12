@@ -58,5 +58,30 @@
   config.show()
   ```
 
+  
+
+- #### request：网络请求组件
+
+  ```python
+  from common.request import Request
+  
+  req = Request()
+  
+  # 普通get请求
+  code, r = req.get('https://baidu.com')
+  print(code, r)
+  
+  base_url = 'http://update.ufactory.cc/releases/'
+  # 请求json数据
+  code, info = req.get_json_info(base_url + 'xarm/updates.json')
+  print(code, info)
+  
+  # 下载文件
+  status, path = req.download(base_url + 'xarm/xarmcore/linux/xarmcore-1.0.0',
+                              target_path='tmp/xarmcore', target_name='xarmcore')
+  print(status, path)
+  ```
+
+  
 
 - 
