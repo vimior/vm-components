@@ -31,6 +31,7 @@
 - #### config：配置组件
 
   ```python
+  # 配置组件导入
   from common.config import DefaultConfig, ConfigTemplate
   
   # 自定义配置类，继承DefaultConfig
@@ -63,6 +64,7 @@
 - #### request：网络请求组件
 
   ```python
+  # 网络请求组件导入
   from common.request import Request
   
   req = Request()
@@ -80,6 +82,39 @@
   status, path = req.download(base_url + 'xarm/xarmcore/linux/xarmcore-1.0.0',
                               target_path='tmp/xarmcore', target_name='xarmcore')
   print(status, path)
+  ```
+
+  
+
+- #### transport：SSH通信组件
+
+  ```python
+  # SSH通信组件导入
+  from common.transport import SSHTransport
+  
+  # 创建SSH通信实例
+  ssh = SSHTransport({
+      'hostname': '192.168.1.211',
+      'username': 'username',
+      'password': 'password'
+  })
+  
+  # 执行命令
+  cmds = [
+      'cd /home;ls',
+      'sudo ifconfig',
+  ]
+  for item in ssh.exec_command(cmds):
+      print(item)
+  
+  # 遍历目录
+  print(ssh.listdir('.'))
+  
+  # 下载
+  ssh.download(...)
+  
+  # 上传
+  ssh.upload(...)
   ```
 
   
