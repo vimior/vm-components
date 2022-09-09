@@ -37,10 +37,10 @@
   # 自定义配置类，继承DefaultConfig
   class Config(DefaultConfig):
       def __init__(self, config_file=None, config_type=None, init_config=None, **kwargs):
-          super(ConfigExample5, self).__init__(config_file=config_file, config_type=config_type, init_config=init_config, **kwargs)
+          super(Config, self).__init__(config_file=config_file, config_type=config_type, init_config=init_config, **kwargs)
       
       # 重载on_init方法，初始化配置参数
-  	  def on_init(self):
+      def on_init(self):
           # 使用ConfigTemplate类来初始化节点参数
           self.Genernal = ConfigTemplate(
               debug=False
