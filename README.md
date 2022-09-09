@@ -6,7 +6,7 @@
 
   ```python
   # 日志组件导入
-  from common.log import logger, LOGGET_FMT, LOGGET_DATE_FMT
+  from vm_components.common.log import logger, LOGGET_FMT, LOGGET_DATE_FMT
   
   # 设置日志级别
   logger.setLevel(logger.INFO)
@@ -32,15 +32,15 @@
 
   ```python
   # 配置组件导入
-  from common.config import DefaultConfig, ConfigTemplate
+  from vm_components.common.config import DefaultConfig, ConfigTemplate
   
   # 自定义配置类，继承DefaultConfig
   class Config(DefaultConfig):
       def __init__(self, config_file=None, config_type=None, init_config=None, **kwargs):
-         super(ConfigExample5, self).__init__(config_file=config_file, config_type=config_type, init_config=init_config, **kwargs)
+          super(ConfigExample5, self).__init__(config_file=config_file, config_type=config_type, init_config=init_config, **kwargs)
       
       # 重载on_init方法，初始化配置参数
-  	def on_init(self):
+  	  def on_init(self):
           # 使用ConfigTemplate类来初始化节点参数
           self.Genernal = ConfigTemplate(
               debug=False
@@ -65,7 +65,7 @@
 
   ```python
   # 网络请求组件导入
-  from common.request import Request
+  from vm_components.common.request import Request
   
   req = Request()
   
@@ -73,14 +73,13 @@
   code, r = req.get('https://baidu.com')
   print(code, r)
   
-  base_url = 'http://update.ufactory.cc/releases/'
+  base_url = 'http://xxx.com/releases/'
   # 请求json数据
-  code, info = req.get_json_info(base_url + 'xarm/updates.json')
+  code, info = req.get_json_info(base_url + 'updates.json')
   print(code, info)
   
   # 下载文件
-  status, path = req.download(base_url + 'xarm/xarmcore/linux/xarmcore-1.0.0',
-                              target_path='tmp/xarmcore', target_name='xarmcore')
+  status, path = req.download(base_url + 'mysoftware.exe', target_path='mysoftware', target_name='mysoftware.exe')
   print(status, path)
   ```
 
@@ -90,7 +89,7 @@
 
   ```python
   # SSH通信组件导入
-  from common.transport import SSHTransport
+  from vm_components.common.transport import SSHTransport
   
   # 创建SSH通信实例
   ssh = SSHTransport({

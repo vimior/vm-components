@@ -68,15 +68,31 @@ class SSHTransport(AbstractTransport):
         try:
             self.close()
             self._ssh = paramiko.SSHClient()
-            self._ssh.load_system_host_keys()
+            if self.config.get('load_system_host_keys', True):
+                self._ssh.load_system_host_keys()
             self._ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
             self._ssh.connect(
                 hostname=self.config.get('hostname', self.config.get('host')),
                 port=self.config.get('port', 22),
                 username=self.config.get('username'),
                 password=self.config.get('password', None),
+                pkey=self.config.get('pkey', None),
                 key_filename=self.config.get('key_filename', None),
-                auth_timeout=self.config.get('auth_timeout', 10))
+                timeout=self.config.get('timeout', None),
+                allow_agent=self.config.get('allow_agent', True),
+                look_for_keys=self.config.get('look_for_keys', True),
+                compress=self.config.get('compress', False),
+                sock=self.config.get('sock', None),
+                gss_auth=self.config.get('gss_auth', False),
+                gss_kex=self.config.get('gss_kex', False),
+                gss_deleg_creds=self.config.get('gss_deleg_creds', True),
+                gss_host=self.config.get('gss_host', None),
+                banner_timeout=self.config.get('banner_timeout', None),
+                auth_timeout=self.config.get('auth_timeout', None),
+                gss_trust_dns=self.config.get('gss_trust_dns', True),
+                passphrase=self.config.get('passphrase', None),
+                # disabled_algorithms=self.config.get('disabled_algorithms', None),
+            )
             return 0
         except Exception as e:
             self._ssh = None
